@@ -1,0 +1,300 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'AWS Non-Credit Services Alert - $0.0113 Daily'
+
+Parameters:
+  emailAddress:
+    Type: String
+    Description: Email address to receive alerts
+    Default: your-email@example.com
+
+Resources:
+  alertTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: non-credit-services-alert
+      DisplayName: Non-Credit Services Alert
+
+  emailSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: email
+      TopicArn: !Ref alertTopic
+      Endpoint: !Ref emailAddress
+
+  marketplaceAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: Marketplace-Services-Alert
+      AlarmDescription: Alert for AWS Marketplace charges > $0.0113
+      MetricName: EstimatedCharges
+      Namespace: AWS/Billing
+      Statistic: Maximum
+      Period: 86400
+      EvaluationPeriods: 1
+      Threshold: 0.0113
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: Currency
+          Value: USD
+        - Name: ServiceName
+          Value: AWSMarketplace
+      AlarmActions:
+        - !Ref alertTopic
+      TreatMissingData: notBreaching
+
+  supportAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: Support-Plan-Alert
+      AlarmDescription: Alert for AWS Support charges > $0.0113
+      MetricName: EstimatedCharges
+      Namespace: AWS/Billing
+      Statistic: Maximum
+      Period: 86400
+      EvaluationPeriods: 1
+      Threshold: 0.0113
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: Currency
+          Value: USD
+        - Name: ServiceName
+          Value: AWSSupport
+      AlarmActions:
+        - !Ref alertTopic
+      TreatMissingData: notBreaching
+
+  domainAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: Domain-Registration-Alert
+      AlarmDescription: Alert for Route53 Domain charges > $0.0113
+      MetricName: EstimatedCharges
+      Namespace: AWS/Billing
+      Statistic: Maximum
+      Period: 86400
+      EvaluationPeriods: 1
+      Threshold: 0.0113
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: Currency
+          Value: USD
+        - Name: ServiceName
+          Value: AmazonRoute53
+      AlarmActions:
+        - !Ref alertTopic
+      TreatMissingData: notBreaching
+
+  reservedInstancesAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: Reserved-Instances-Alert
+      AlarmDescription: Alert for Reserved Instances charges > $0.0113
+      MetricName: EstimatedCharges
+      Namespace: AWS/Billing
+      Statistic: Maximum
+      Period: 86400
+      EvaluationPeriods: 1
+      Threshold: 0.0113
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: Currency
+          Value: USD
+        - Name: ServiceName
+          Value: Amazon Elastic Compute Cloud - Compute
+        - Name: UsageType
+          Value: HeavyUsage
+      AlarmActions:
+        - !Ref alertTopic
+      TreatMissingData: notBreaching
+
+  savingsPlansAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: Savings-Plans-Alert
+      AlarmDescription: Alert for Savings Plans charges > $0.0113
+      MetricName: EstimatedCharges
+      Namespace: AWS/Billing
+      Statistic: Maximum
+      Period: 86400
+      EvaluationPeriods: 1
+      Threshold: 0.0113
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: Currency
+          Value: USD
+        - Name: ServiceName
+          Value: AWS Savings Plans
+      AlarmActions:
+        - !Ref alertTopic
+      TreatMissingData: notBreaching
+
+  dataTransferAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: Data-Transfer-Alert
+      AlarmDescription: Alert for excess data transfer charges > $0.0113
+      MetricName: EstimatedCharges
+      Namespace: AWS/Billing
+      Statistic: Maximum
+      Period: 86400
+      EvaluationPeriods: 1
+      Threshold: 0.0113
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: Currency
+          Value: USD
+        - Name: ServiceName
+          Value: Amazon CloudFront
+        - Name: UsageType
+          Value: DataTransfer-Out-Bytes
+      AlarmActions:
+        - !Ref alertTopic
+      TreatMissingData: notBreaching
+
+  workspacesAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: WorkSpaces-Alert
+      AlarmDescription: Alert for WorkSpaces charges > $0.0113
+      MetricName: EstimatedCharges
+      Namespace: AWS/Billing
+      Statistic: Maximum
+      Period: 86400
+      EvaluationPeriods: 1
+      Threshold: 0.0113
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: Currency
+          Value: USD
+        - Name: ServiceName
+          Value: Amazon WorkSpaces
+      AlarmActions:
+        - !Ref alertTopic
+      TreatMissingData: notBreaching
+
+  connectAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: Connect-Alert
+      AlarmDescription: Alert for Amazon Connect charges > $0.0113
+      MetricName: EstimatedCharges
+      Namespace: AWS/Billing
+      Statistic: Maximum
+      Period: 86400
+      EvaluationPeriods: 1
+      Threshold: 0.0113
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: Currency
+          Value: USD
+        - Name: ServiceName
+          Value: Amazon Connect
+      AlarmActions:
+        - !Ref alertTopic
+      TreatMissingData: notBreaching
+
+  chimeAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: Chime-Alert
+      AlarmDescription: Alert for Amazon Chime charges > $0.0113
+      MetricName: EstimatedCharges
+      Namespace: AWS/Billing
+      Statistic: Maximum
+      Period: 86400
+      EvaluationPeriods: 1
+      Threshold: 0.0113
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: Currency
+          Value: USD
+        - Name: ServiceName
+          Value: Amazon Chime
+      AlarmActions:
+        - !Ref alertTopic
+      TreatMissingData: notBreaching
+
+  directConnectAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: DirectConnect-Alert
+      AlarmDescription: Alert for Direct Connect charges > $0.0113
+      MetricName: EstimatedCharges
+      Namespace: AWS/Billing
+      Statistic: Maximum
+      Period: 86400
+      EvaluationPeriods: 1
+      Threshold: 0.0113
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: Currency
+          Value: USD
+        - Name: ServiceName
+          Value: AWS Direct Connect
+      AlarmActions:
+        - !Ref alertTopic
+      TreatMissingData: notBreaching
+
+  taxAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: Tax-Alert
+      AlarmDescription: Alert for Tax charges > $0.0113
+      MetricName: EstimatedCharges
+      Namespace: AWS/Billing
+      Statistic: Maximum
+      Period: 86400
+      EvaluationPeriods: 1
+      Threshold: 0.0113
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: Currency
+          Value: USD
+        - Name: ServiceName
+          Value: Tax
+      AlarmActions:
+        - !Ref alertTopic
+      TreatMissingData: notBreaching
+
+  creditExpiryTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: credit-expiry-alert
+      DisplayName: Credit Expiry Alert
+
+  creditEmailSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: email
+      TopicArn: !Ref creditExpiryTopic
+      Endpoint: !Ref emailAddress
+
+  creditExpiryRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: CreditExpiryReminder
+      Description: Credit expiry reminder April 29, 2026
+      ScheduleExpression: 'cron(0 9 29 4 ? 2026)'
+      State: ENABLED
+      Targets:
+        - Arn: !Ref creditExpiryTopic
+          Id: CreditTarget
+          InputTransformer:
+            InputTemplate: |
+              {
+                "Subject": "AWS Community Builders Credits Expire Tomorrow - $500",
+                "Message": "🚨 AWS CREDITS EXPIRY ALERT 🚨\n\nYour AWS Community Builders 2024 $500 credits will expire TOMORROW (April 30, 2026).\n\nAfter tomorrow, all AWS services will be charged to your payment method.\n\nAction Required:\n- Review your current AWS usage\n- Stop non-essential services\n- Set up billing alerts for post-credit usage\n\nCredits expire: April 30, 2026"
+              }
+
+  snsTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics:
+        - !Ref creditExpiryTopic
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: events.amazonaws.com
+            Action: sns:Publish
+            Resource: !Ref creditExpiryTopic
