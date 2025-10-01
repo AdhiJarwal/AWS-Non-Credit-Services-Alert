@@ -82,10 +82,6 @@ Perfect for AWS Community Builders! Feel free to:
 - Enhance documentation
 - Submit issues/PRs
 
-## 📄 License
-
-MIT License - Feel free to use and modify!
-
 ---
 
 **💡 Pro Tip:** This setup costs virtually nothing and uses credit-eligible services to monitor non-credit services!
