@@ -101,8 +101,6 @@ Resources:
           Value: USD
         - Name: ServiceName
           Value: Amazon Elastic Compute Cloud - Compute
-        - Name: UsageType
-          Value: HeavyUsage
       AlarmActions:
         - !Ref alertTopic
       TreatMissingData: notBreaching
@@ -145,8 +143,6 @@ Resources:
           Value: USD
         - Name: ServiceName
           Value: Amazon CloudFront
-        - Name: UsageType
-          Value: DataTransfer-Out-Bytes
       AlarmActions:
         - !Ref alertTopic
       TreatMissingData: notBreaching
